@@ -1,0 +1,21 @@
+select b.firm_id, b.branch_id, t.cust_id,y.identity_name,t.identity_id, t.id_number,c.reg_date,case when c.reg_date is null then 'Before 2020 April' when c.reg_date <'31-Mar-2020' then 'Before 2020 April' when c.reg_date between '1-Apr-2020' and '31-Mar-2021' then 'Year 20-21'  when c.reg_date between '1-Apr-2021' and '31-Mar-2022' then 'Year 21-22' else 'Year 22-23' end Year_wise
+  from identity_dtl t,identity y, (select distinct aa.cust_id from pledge_master aa,
+  pledge_status bb where aa.pledge_no=bb.pledge_no and bb.status_id<>0) a, customer b,customer_detail c
+ where b.cust_id = a.cust_id
+   and t.identity_id in (1, 2, 3, 16, 17, 18,505,555)
+   and length(t.id_number) < 8
+   and c.cust_id=b.cust_id and
+       t.cust_id = a.cust_id
+       and y.identity_id=t.identity_id
+
+---------------8-10-2022----------
+select b.firm_id, b.branch_id,d.country_name, t.cust_id,y.identity_name,t.identity_id, t.id_number,c.reg_date,case when c.reg_date is null then 'Before 2020 April' when c.reg_date <'31-Mar-2020' then 'Before 2020 April' when c.reg_date between '1-Apr-2020' and '31-Mar-2021' then 'Year 20-21'  when c.reg_date between '1-Apr-2021' and '31-Mar-2022' then 'Year 21-22' else 'Year 22-23' end Year_wise
+  from identity_dtl t,identity y, (select distinct aa.cust_id from pledge_master aa,
+  pledge_status bb where aa.pledge_no=bb.pledge_no and bb.status_id<>0) a, customer b,customer_detail c,country_dtl d
+ where b.cust_id = a.cust_id
+   and t.identity_id in (1, 2, 3, 16, 17, 18,505,555)
+   and length(t.id_number) < 8
+   and c.cust_id=b.cust_id and
+       t.cust_id = a.cust_id
+       and y.identity_id=t.identity_id
+       and d.country_id=b.country_id

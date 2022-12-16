@@ -1,0 +1,9 @@
+SLNO#10#1 PAn not updated for more than 5 lakhs pledges query on 25-8-2022---
+
+
+--create table pan_not_in_deposit_5Lak as select a.*,b.status_id from mana0809.pledge_master@uatr_backup2 a , mana0809.pledge_status@uatr_backup2 b where a.pledge_no=b.pledge_no and b.status_id<>0 and a.pledge_val>500000 and cust_id not in(select c.cust_id from dms.deposit_pan_detail@uatr_backup2 c );
+--create table pan_null_in_deposit_5Lak as select a.*,b.status_id from mana0809.pledge_master@uatr_backup2 a , mana0809.pledge_status@uatr_backup2 b where a.pledge_no=b.pledge_no and b.status_id<>0 and a.pledge_val>500000 and cust_id in(select c.cust_id from dms.deposit_pan_detail@uatr_backup2 c where c.pan is null);
+--create table Pan_not_available_5Lak_above_pl as select t.* from pan_not_in_deposit_5Lak t where t.cust_id in (select a.cust_id from mana0809.customer_detail@uatr_backup2 a where a.pan is null);
+select case when t.tra_dt<'31-Mar-2020' then 'Before 2020 April' when t.tra_dt between '1-Apr-2020' and '31-Mar-2021' then 'Year 20-21'  when t.tra_dt between '1-Apr-2021' and '31-Mar-2022' then 'Year 21-22' else 'Year 22-23' end Year_Wise,t.branch_id,t.pledge_no,t.cust_id,t.tra_dt pledge_dt,t.pledge_val,t.status_id from Pan_not_available_5Lak_above_pl t ;
+
+select t.* from Pan_not_available_5Lak_above_pl  t where t.cust_id not  in(select d.cust_id,d.* from dms.deposit_pan_detail_his@uatr_backup2 d )

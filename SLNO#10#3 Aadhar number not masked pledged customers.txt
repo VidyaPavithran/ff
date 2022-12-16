@@ -1,0 +1,20 @@
+select b.firm_id, b.branch_id,e.reg_date, case when e.reg_date <'31-Mar-2020' then 'Before 2020 April' when e.reg_date between '1-Apr-2020' and '31-Mar-2021' then 'Year 20-21'  when e.reg_date between '1-Apr-2021' and '31-Mar-2022' then 'Year 21-22' else 'Year 22-23' end Year_wise, length(a.id_number), a.cust_id,a.id_number,a.identity_id
+  from  identity_dtl a, customer b,(select distinct t.cust_id from pledge_master t, pledge_status c where
+  t.pledge_no = c.pledge_no and c.status_id<>0
+ ) d,CUSTOMER_DETAIL e where e.cust_id=b.cust_id and  d.cust_id=b.cust_id
+   and (
+   substr(upper(a.id_number), 1, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(upper(a.id_number), 2, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(upper(a.id_number), 3, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(upper(a.id_number), 4, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(upper(a.id_number), 5, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(upper(a.id_number), 6, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(upper(a.id_number), 7, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(upper(a.id_number), 8, 1)  not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+    substr(a.id_number, 9, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+    substr(a.id_number, 10, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+    substr(a.id_number, 11, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+    substr(a.id_number, 12, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') 
+      ) --('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') 
+   and b.cust_id = a.cust_id
+   and a.identity_id in (16, 555, 505) --and length(a.id_number) not in(16,72,20)

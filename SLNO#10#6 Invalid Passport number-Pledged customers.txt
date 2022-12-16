@@ -1,0 +1,10 @@
+select b.firm_id, b.branch_id,a.cust_id, length(a.id_number), a.id_number,a.identity_id,a.issue_dt,a.exp_dt,d.reg_date, case when d.reg_date <'31-Mar-2020' then 'Before 2020 April' when d.reg_date between '1-Apr-2020' and '31-Mar-2021' then 'Year 20-21'  when d.reg_date between '1-Apr-2021' and '31-Mar-2022' then 'Year 21-22' else 'Year 22-23' end Year_wise
+  from CUST_CHK t, identity_dtl a, customer b,customer_detail d,
+  (select distinct j.cust_id from pledge_master j,pledge_status k where
+  j.pledge_no=k.pledge_no and k.status_id<>0) c
+ where b.cust_id = a.cust_id
+   and t.cust_id = a.cust_id
+   and c.cust_id = b.cust_id
+   and d.cust_id=a.cust_id
+   and a.identity_id = 1
+   and length(a.id_number) <> 8
