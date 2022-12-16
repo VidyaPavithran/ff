@@ -1,0 +1,13 @@
+--create table aa as select a.pan,a.date_of_birth,round((t.tra_dt-a.date_of_birth)/365,0) age,decode( substr(t.pledge_no,8,2),78 , 'Door Step' ,70 , 'CGL',73, 'OGL') mode_of_pledge,b.identity_id,b.id_number,c.identity_name,t.*   from Pledge_master t,customer_detail a,identity_dtl b,identity c where c.identity_id=b.identity_id and t.tra_dt>='24-Aug-2022' and b.cust_id=t.cust_id and t.cust_id=a.cust_id;
+--select t.* from aa t where t.age<18 or t.age>100;
+--select t.* from aa t where substr(upper(t.pan),4,1) not in('P');
+--No exception in Pan card as KYC--select substr(upper(t.pan),4,1),t.* from aa t where t.identity_name like '%PAN%' and t.identity_id<>13 and substr(upper(t.pan),4,1) not in('P');
+--select c.pan,substr(upper(c.pan),4,1)Pan_not_P,a.* from dms.deposit_pan_detail@uatr_backup2 c,aa a where a.cust_id=c.cust_id and  substr(upper(c.pan),4,1) not in('P')
+--create table aaaa as select a.issue_dt,a.exp_dt,t.* from aa t,identity_dtl a where t.cust_id=a.cust_id and a.identity_id in(1,503,553,2,502,552) and t.tra_dt>a.exp_dt;
+--select t.* from aaaa t,(select t.cust_id,count(cust_id) cnt from aaaa t group by t.cust_id having count(cust_id)>1) b where t.cust_id=b.cust_id;
+--select t.cust_id,count(cust_id) from aaaa t group by t.cust_id having count(cust_id)>1;
+
+--select t.* from identity t where upper(t.identity_name) like '%DRIVING%' or upper(t.identity_name) like '%PASSP%';
+
+
+
