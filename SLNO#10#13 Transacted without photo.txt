@@ -1,0 +1,7 @@
+
+select distinct t.cust_id,a.branch_id,j.reg_date, case when j.reg_date is null then 'Before 2020 April' when j.reg_date<'31-Mar-2020' then 'Before 2020 April' when j.reg_date between '1-Apr-2020' and '31-Mar-2021' then 'Year 20-21'  when j.reg_date between '1-Apr-2021' and '31-Mar-2022' then 'Year 21-22' else 'Year 22-23' end Year_Wise,sum(t.balance) OS
+  from mana0809.customer_detail@uatr_backup2 j, mana0809.customer@uatr_backup2 a ,mana0809.tbl_pledge_yesterday_live@uatr_backup2 t
+where not exists (select c.cust_id
+          from mana0809.customer_photo@uatr_backup2 c
+         where c.pledge_photo is not null
+           and t.cust_id = c.cust_id) and a.cust_id=t.cust_id and j.cust_id=a.cust_id group by t.cust_id,a.branch_id,j.reg_date;

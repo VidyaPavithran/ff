@@ -1,0 +1,21 @@
+/*create table cust_pan as select c.reg_date,c.cust_id,c.pan from  customer_detail c , ( select distinct a.cust_id from pledge_master a , pledge_status b where a.pledge_no=b.pledge_no and b.status_id<>0) d
+where d.cust_id=c.cust_id
+union all
+
+select e.reg_date,c.cust_id,c.pan from  dms.deposit_pan_detail@uatr_backup2 c ,customer_detail e ,( select distinct a.cust_id from pledge_master a , pledge_status b where a.pledge_no=b.pledge_no and b.status_id<>0) d
+where d.cust_id=c.cust_id and e.cust_id=c.cust_id;*/
+--delete from cust_pan t where t.pan is null ;
+--commit;
+
+--Select t.cust_id,count(*) from cust_pan t group by cust_id having count(*)>1
+--create table cust_pan1 as select case when t.reg_date is null then 'Before 2020 April' when t.reg_date<'31-Mar-2020' then 'Before 2020 April' when t.reg_date between '1-Apr-2020' and '31-Mar-2021' then 'Year 20-21'  when t.reg_date between '1-Apr-2021' and '31-Mar-2022' then 'Year 21-22' else 'Year 22-23' end Year_Wise,a.branch_id,t.*,substr(upper(t.pan),4,1) Letter  from cust_pan t,customer a where a.cust_id=t.cust_id and substr(upper(t.pan),4,1) not in('P');
+
+--delete from cust_pan1 where PAN='FORM 60'; 
+
+--commit;
+--select t.cust_id,count(*) from cust_pan1 t group by cust_id having count(*)>1;
+--delete from cust_pan1 t where t.rowid<(select max(p.rowid) from cust_pan1 p where t.cust_id=p.cust_id);
+--commit;
+select t.* from cust_pan1 t;
+
+
