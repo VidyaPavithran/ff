@@ -1,0 +1,146 @@
+insert/*+APPEND*/ into <> update instantely
+Select /*PARALLEL(10)*/ <>  compaire tables with 10 rows
+
+create index MANA0809.J17F19Pl_no on MANA0809.CUSTOMER_DETAILS_JAN17_FEB19 (lac_no)onvline;
+
+executung 
+
+ /* merge \*+APPEND*\into mana0809.Customer_details_Jan17_Feb19 t
+using KPMG.MIS_Jan2017 a
+on (t.lac_no  = a.pledge_no )
+when matched then
+  update set t.Jan17 = a.balance*/
+  /*commit;*/
+  
+ /* merge \*+APPEND*\into mana0809.Customer_details_Jan17_Feb19 t
+using KPMG.MIS_Jul2017 a
+on (t.lac_no  = a.pledge_no )
+when matched then
+  update set t.jul17 = a.balance*/
+  /*commit;*/
+  
+   merge /*+APPEND*/into mana0809.Customer_details_Jan17_Feb19 t
+using KPMG.MIS_Mar2017 a
+on (t.lac_no  = a.pledge_no )
+when matched then
+  update set t.Mar17 = a.balance
+
+
+Jan17Number(10,2),
+Feb17Number(10,2),
+Mar17Number(10,2),
+Apr17Number(10,2),
+May17Number(10,2),
+Jun17Number(10,2),
+Jul17Number(10,2),
+Aug17Number(10,2),
+Sep17Number(10,2),
+Oct17Number(10,2),
+Nov17Number(10,2),
+Dec17Number(10,2),
+Jan18Number(10,2),
+Feb18Number(10,2),
+Mar18Number(10,2),
+Apr18Number(10,2),
+May18Number(10,2),
+Jun18Number(10,2),
+Jul18Number(10,2),
+Aug18Number(10,2),
+Sep18Number(10,2),
+Oct18Number(10,2),
+Nov18Number(10,2),
+Dec18Number(10,2),
+Jan19Number(10,2),
+Feb19Number(10,2)
+
+select /*+parallel(10)*/
+ t.branch_id,
+ b.branch_name,
+ t.pledge_no lac_no,
+ t.cust_id,
+ /*substr(t.cust_id, 1, 2) || '**' || substr(t.cust_id, 5, 14) cust_id,*/
+ 'GOLDLOAN' LOAN_PRODUCT_TYPE,
+ case
+ 
+   when to_date(c.reg_date) = t.tra_dt and t.cust_id = c.cust_id then
+    'new_customer'
+   else
+    'existing_customer'
+ end type_of_customer,
+ t.pledge_val tot_disb_made,
+ t.pledge_val tot_disb_fixed,
+ t.period orgterm,
+ ' ' irr,
+ ' ' FOIR,
+ 'No' Presence_of_guarantor,
+ ' ' credit_rating,
+ ' ' No_of_other_loans,
+ ' ' ADJ_income,
+ ' ' income_of_borrower,
+ ' ' income_of_coborrower,
+ t.int_rate ROI,
+ ' ' EMI,
+ ' ' BAL_TERM,
+ ' ' CUST_OTH_INCOME,
+ ' ' DESIGNATION,
+ ' ' WORK_SINCE,
+ ' ' TOT_YEARS_OF_EXPERIENCE,
+ ' ' EMP_CLASS,
+ ' ' NATURE_OF_EMPLOYMENT,
+ ' ' TYPE_OF_EMPLOYMENT,
+ ' ' INDUSTRY_TYPE,
+ ' ' LOCATION_OF_CURRENT_RESIDENCE,
+ d.district_name NAME_OF_CITY,
+ ' ' LENGTH_OF_RESIDENCE,
+ ' ' NATURE_OF_RESIDENTIAL,
+ ' ' RESIDENT_TYPE,
+ c.date_of_birth DT_OF_BIRTH,
+ ' ' MARITAL_STATUS,
+ case
+   when c.gender = 0 then
+    'Female'
+   when c.gender = 1 then
+    'Male'
+   when c.gender = 2 then
+    'Transgender'
+   else
+    ' '
+ end Gender,
+ ' ' NO_OF_DEPENDENTS,
+ ' ' QUALIFICATION1,
+ ' ' QUALIFICATION2
+  from mana0809.PLEDGE_MASTER_Jan17_Feb_19 t,
+       customer_detail                     c,
+       customer                            c1,
+       branch_master                       b,
+       post_master                         p,
+       district_master                     d
+ where t.cust_id = c.cust_id
+   AND c1.cust_id = t.cust_id
+   and c1.pin_serial = p.sr_number
+   and d.district_id = p.district_id
+   and t.branch_id = b.branch_id
+   and t.tra_dt between '1-Feb-2019' and '28-Feb-2019'--'1-Jan-2019' and '31-Jan-2019'
+   --'1-Dec-2018' and '31-Dec-2018' --'1-Nov-2018' and '30-Nov-2018' --'1-Oct-2018' and '31-Oct-2018' --'1-Sep-2018' and '30-Sep-2018'--'1-Aug-2018' and '31-Aug-2018'-- '1-Jul-2018' and '31-Jul-2018'--'1-Jun-2018' and '30-Jun-2018'--'1-May-2018' and '31-May-2018'--'1-Apr-2018' and '30-Apr-2018'--'1-Mar-2018' and '31-Mar-2018'--'1-Feb-2018' and '28-Feb-2018'--'1-Jan-2018' and '31-Jan-2018'
+   --'1-Dec-2017' and '31-Dec-2017'-- '1-Nov-2017' and '30-Nov-2017'-- '1-Oct-2017' and '31-Oct-2017'--'1-Sep-2017' and '30-Sep-2017'--'1-Aug-2017' and '31-Aug-2017'--'1-Jul-2017' and '31-Jul-2017'--'1-Jun-2017' and '30-Jun-2017' --'1-May-2017' and '31-May-2017' -- '1-Apr-2017' and '30-Apr-2017'--'1-Mar-2017' and '31-Mar-2017' -- '1-Jan-2017' and '31-Jan-2017'-- '1-Feb-2017' and '28-Feb-2017'
+
+3,6,11
+traiming 
+
+152 rengith sir
+
+Acu_lot Mst --Auction dt between and auc_mst lot id status id =16
+
+monthly os.
+kpmg.mis_dec2018
+
+
+saiprasad@macomsolutions.com
+sowrav ibm
+sibil ho support
+
+ https://www.amazon.in/Purple-Designer-Coated-Capsule-Umbrella/dp/B07DCQVSVF/ref=sr_1_37?keywords=umbrella+with+uv+coating&qid=1553246069&s=gateway&sr=8-37
+
+ 
+
+03.06.19 to 07.06.19
