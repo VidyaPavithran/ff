@@ -1,0 +1,57 @@
+Pan Control exception checking
+
+--------------------------
+
+select a.branch_id,
+       a.cust_id,
+       c.identity_name,
+       length(t.id_number),
+       substr(t.id_number, 1, 3) ANY_ALPHABET_1,
+       substr(t.id_number,4, 1) sELECTED_ALBHABET_2,
+       substr(t.id_number, 5, 1) ANY_ALPHABET_3,
+       substr(t.id_number, 6, 4) ANY_NUMBER,
+        substr(t.id_number, 10, 1) ANY_ALPHABET_4,
+       t.identity_id,
+       t.id_number,
+       b.reg_date
+  from identity_dtl t, customer_detail b, customer a, identity c
+ where b.reg_date >= '30-Jul-2022'
+   and b.cust_id = t.cust_id
+   and t.identity_id in (14, 19, 506)
+   and a.cust_id = b.cust_id
+   and c.identity_id = t.identity_id
+   and NOT
+        REGEXP_LIKE(T.id_number,
+                    '[a-zA-Z]{3}[PCHABGJLFTpchabgjlft]{1}[a-zA-Z]{1}[0-9]{4}[a-zA-Z]{1}');
+
+-----------------or---------------------------------------
+--PAN
+select a.branch_id,
+       a.cust_id,
+       c.identity_name,
+       length(t.id_number),
+       substr(t.id_number, 1, 3) ANY_ALPHABET_1,
+       substr(t.id_number,4, 1) sELECTED_ALBHABET_2,
+       substr(t.id_number, 5, 1) ANY_ALPHABET_3,
+       substr(t.id_number, 6, 4) ANY_NUMBER,
+        substr(t.id_number, 10, 1) ANY_ALPHABET_4,
+       t.identity_id,
+       t.id_number,
+       b.reg_date
+  from identity_dtl t, customer_detail b, customer a, identity c
+ where b.reg_date >= '30-Jul-2022'
+   and b.cust_id = t.cust_id
+   and t.identity_id in (14, 19, 506)
+   and a.cust_id = b.cust_id
+   and c.identity_id = t.identity_id
+   and   ( substr(upper(t.id_number),1,1) not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+           substr(upper(t.id_number),2,1) not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+           substr(upper(t.id_number),3,1) not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+           substr(upper(t.id_number),4,1) not in ('P','C','H','A','B','G','J','L','F','T') OR
+           substr(upper(t.id_number),5,1) not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+           substr(t.id_number, 6, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+           substr(t.id_number, 7, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+           substr(t.id_number, 8, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+           substr(t.id_number, 9, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+           substr(upper(t.id_number),10,1) not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
+           )

@@ -1,0 +1,15 @@
+3. Voters ID control checking from 30-Jul-2022 CRF 108636
+3	Voters ID		
+		a) 	Minimum 8 characters, maximum 20
+		b)	Special characters '-' and '/' can only be allowed
+		c)	Numbers and alphabets may be permitted 
+-----------------------------------------------------------------------
+
+select a.branch_id,a.cust_id,c.identity_name,length(t.id_number),t.identity_id,t.id_number,b.reg_date
+  from identity_dtl t, customer_detail b,customer a,identity c
+ where b.reg_date >= '30-Jul-2022'
+   and b.cust_id = t.cust_id
+   and NOT REGEXP_LIKE(T.id_number,'^([a-zA-Z0-9/-]){8,20}$')
+   and t.identity_id in(3,551)
+   and a.cust_id=b.cust_id
+   and c.identity_id=t.identity_id;

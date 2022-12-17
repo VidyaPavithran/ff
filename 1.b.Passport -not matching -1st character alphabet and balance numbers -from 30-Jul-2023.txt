@@ -1,0 +1,20 @@
+2.a.Passport -not matching -1st character alphabet and balance numbers -from 30-Jul-2023
+--------------------------------------------
+
+select c.branch_id,b.identity_name,a.cust_id, a.identity_id,LENGTH(a.id_number) KYC_size, a.id_number, t.reg_date
+  from customer_detail t, identity_dtl a, identity b, customer c
+ where b.identity_id = a.identity_id
+   and t.reg_date >= '30-Jul-2022'
+   and a.cust_id = t.cust_id
+   AND A.IDENTITY_ID in(1,503,553)
+   --AND LENGTH(a.id_number)<>8
+   and c.cust_id=t.cust_id
+   and ( substr(upper(a.id_number),1,1) not in ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z') OR
+   substr(a.id_number, 2, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+   substr(a.id_number, 3, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+   substr(a.id_number, 4, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+   substr(a.id_number, 5, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+   substr(a.id_number, 6, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+   substr(a.id_number, 7, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') OR
+   substr(a.id_number, 8, 1) not in ('1', '2', '3', '4', '5', '6', '7', '8', '9', '0'))
+   
